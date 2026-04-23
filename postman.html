@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Postman - PRO Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { slate: { 950: '#020617' } } } } }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            outline: none;
+        }
+
+        .tab-active {
+            border-bottom-color: #f97316 !important;
+            color: #ea580c !important;
+        }
+
+        .side-tab-active {
+            background-color: #e2e8f0;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .dark .side-tab-active {
+            background-color: #1e293b;
+            color: #f8fafc;
+        }
+
+        input[type="file"]::file-selector-button {
+            border: 1px solid #cbd5e1;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #475569;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+
+        .dark input[type="file"]::file-selector-button {
+            border-color: #475569;
+            background: #334155;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-300 font-sans transition-colors duration-200">
+
+    <nav
+        class="bg-slate-900 dark:bg-black text-white px-4 py-3 flex justify-between items-center shrink-0 shadow-sm z-20">
+        <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
+                </path>
+            </svg>
+            <h1 class="text-lg font-bold tracking-wide">Mini Postman <span
+                    class="text-xs text-white bg-gradient-to-r fr   om-orange-500 to-red-600 px-2 py-0.5 rounded ml-1 font-black shadow">PRO</span>
+            </h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <button id="themeToggle"
+                class="text-slate-400 hover:text-white transition p-1.5 rounded hover:bg-slate-800">
+                <svg class="w-5 h-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                    </path>
+                </svg>
+                <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden relative">
+
+        <div id="codeModal"
+            class="hidden absolute inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex justify-center items-center">
+            <div
+                class="bg-white dark:bg-slate-900 w-3/4 max-w-3xl rounded-xl shadow-2xl flex flex-col overflow-hidden border border-slate-200 dark:border-slate-700">
+                <div
+                    class="flex justify-between items-center px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+                    <h2 class="font-bold text-lg dark:text-white">Generate Code Snippets</h2>
+                    <button onclick="document.getElementById('codeModal').classList.add('hidden')"
+                        class="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+                </div>
+                <div class="flex border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
+                    <button
+                        class="code-tab-btn px-6 py-2 text-sm font-bold text-orange-500 border-b-2 border-orange-500"
+                        data-lang="curl">cURL</button>
+                    <button
+                        class="code-tab-btn px-6 py-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white border-b-2 border-transparent transition"
+                        data-lang="fetch">Fetch (JS)</button>
+                    <button
+                        class="code-tab-btn px-6 py-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white border-b-2 border-transparent transition"
+                        data-lang="python">Python (Requests)</button>
+                </div>
+                <div class="p-6 bg-slate-900 flex-1 relative">
+                    <button id="copyCodeBtn"
+                        class="absolute top-4 right-4 text-xs bg-slate-700 hover:bg-slate-600 text-white py-1 px-3 rounded transition">Copy
+                        Code</button>
+                    <pre id="codeOutput"
+                        class="text-green-400 font-mono text-sm whitespace-pre-wrap break-all h-64 overflow-y-auto"></pre>
+                </div>
+            </div>
+        </div>
+
+        <aside
+            class="w-72 bg-slate-100 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 z-10 transition-colors">
+            <div class="flex border-b border-slate-200 dark:border-slate-800 text-xs font-bold">
+                <button
+                    class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn side-tab-active"
+                    data-target="panel-history">History</button>
+                <button
+                    class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn"
+                    data-target="panel-saved">Saved</button>
+                <button
+                    class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn"
+                    data-target="panel-env">Env {}</button>
+            </div>
+
+            <div id="panel-history" class="side-panel flex-1 flex flex-col overflow-hidden">
+                <div class="p-2 flex justify-end border-b border-slate-200 dark:border-slate-800">
+                    <button id="clearHistoryBtn"
+                        class="text-[10px] text-slate-500 hover:text-red-600 transition uppercase font-bold tracking-wider">Clear</button>
+                </div>
+                <div id="historyList" class="flex-1 overflow-y-auto p-2 space-y-1"></div>
+            </div>
+
+            <div id="panel-saved" class="side-panel flex-1 flex flex-col overflow-hidden hidden">
+                <div
+                    class="p-3 border-b border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900">
+                    Click 'Save' in the request bar to store endpoints here.
+                </div>
+                <div id="savedList" class="flex-1 overflow-y-auto p-2 space-y-2"></div>
+            </div>
+
+            <div id="panel-env" class="side-panel flex-1 flex flex-col overflow-hidden hidden">
+                <div class="p-2 border-b border-slate-200 dark:border-slate-800">
+                    <button id="addEnvBtn"
+                        class="w-full text-xs bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 py-1.5 rounded font-semibold transition text-slate-700 dark:text-slate-300">+
+                        Add Variable</button>
+                </div>
+                <div id="envList" class="flex-1 overflow-y-auto p-2 space-y-2"></div>
+            </div>
+        </aside>
+
+        <main class="flex-1 flex flex-col overflow-hidden bg-white dark:bg-slate-950 relative transition-colors">
+
+            <div id="toast"
+                class="absolute top-4 right-4 bg-slate-800 text-white text-sm px-4 py-2 rounded shadow-lg transform transition-transform duration-300 translate-y-[-150%] z-50 flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span id="toastMsg">Action successful!</span>
+            </div>
+
+            <div class="flex flex-col h-[55%] border-b-4 border-slate-300 dark:border-slate-800 resize-y min-h-[250px]">
+
+                <div
+                    class="p-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shrink-0 flex gap-2">
+                    <div
+                        class="flex flex-1 shadow-sm rounded-md ring-1 ring-slate-300 dark:ring-slate-700 focus-within:ring-2 focus-within:ring-orange-500">
+                        <select id="httpMethod"
+                            class="px-3 py-2.5 rounded-l-md bg-slate-100 dark:bg-slate-800 border-r border-slate-300 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-200 outline-none w-24 text-sm focus:bg-white dark:focus:bg-slate-700 cursor-pointer">
+                            <option value="GET">GET</option>
+                            <option value="POST" selected>POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="PATCH">PATCH</option>
+                            <option value="DELETE">DELETE</option>
+                        </select>
+                        <input type="text" id="endpointUrl"
+                            class="flex-1 px-4 py-2.5 outline-none font-mono text-sm bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 placeholder-slate-400"
+                            placeholder="https://jsonplaceholder.typicode.com/users"
+                            value="https://jsonplaceholder.typicode.com/users">
+                        <button id="sendBtn"
+                            class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 px-6 rounded-r-md transition flex items-center gap-2">
+                            <span>Send</span>
+                        </button>
+                    </div>
+
+                    <button id="saveReqBtn"
+                        class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2.5 px-4 rounded-md transition text-sm flex items-center gap-1 shadow-sm border border-slate-300 dark:border-slate-700"
+                        title="Save to Collections">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
+                            </path>
+                        </svg>
+                        Save
+                    </button>
+                    <button id="openCodeBtn"
+                        class="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-md transition text-sm flex items-center gap-1 shadow-sm"
+                        title="Generate Code Snippet">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                        Code
+                    </button>
+                </div>
+
+                <div
+                    class="flex px-4 border-b border-slate-200 dark:border-slate-800 shrink-0 bg-slate-50 dark:bg-slate-900 pt-2 gap-4">
+                    <button
+                        class="req-tab-btn font-semibold text-sm py-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition"
+                        data-target="req-params">Params</button>
+                    <button
+                        class="req-tab-btn font-semibold text-sm py-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition"
+                        data-target="req-auth">Auth</button>
+                    <button
+                        class="req-tab-btn font-semibold text-sm py-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition"
+                        data-target="req-headers">Headers</button>
+                    <button
+                        class="req-tab-btn tab-active font-semibold text-sm py-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition"
+                        data-target="req-body">Body</button>
+                    <button
+                        class="req-tab-btn font-semibold text-sm py-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition flex items-center gap-1"
+                        data-target="req-scripts">Scripts <span
+                            class="w-2 h-2 rounded-full bg-blue-500"></span></button>
+                    <button
+                        class="req-tab-btn font-semibold text-sm py-2 border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition flex items-center gap-1"
+                        data-target="req-tests">Tests <span class="w-2 h-2 rounded-full bg-green-500"></span></button>
+                </div>
+
+                <div class="flex-1 overflow-hidden bg-white dark:bg-slate-950 relative">
+
+                    <div id="req-params" class="req-panel flex flex-col h-full p-4 hidden overflow-y-auto">
+                        <button id="addParamBtn"
+                            class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition">+
+                            Add Param</button>
+                        <div id="paramRows" class="space-y-2"></div>
+                    </div>
+
+                    <div id="req-auth" class="req-panel flex flex-col h-full p-4 hidden overflow-y-auto">
+                        <select id="authType"
+                            class="w-64 mb-4 px-3 py-2 border border-slate-300 dark:border-slate-700 rounded outline-none focus:border-orange-500 text-sm bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+                            <option value="none">No Auth</option>
+                            <option value="bearer">Bearer Token</option>
+                            <option value="basic">Basic Auth</option>
+                        </select>
+                        <div id="bearerTokenArea" class="hidden auth-panel">
+                            <input type="text" id="bearerToken" placeholder="Token"
+                                class="w-full max-w-lg px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded outline-none font-mono text-sm">
+                        </div>
+                        <div id="basicAuthArea" class="hidden auth-panel flex flex-col gap-2 max-w-md">
+                            <input type="text" id="basicUser" placeholder="Username"
+                                class="px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded outline-none font-mono text-sm">
+                            <input type="password" id="basicPass" placeholder="Password"
+                                class="px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 rounded outline-none font-mono text-sm">
+                        </div>
+                    </div>
+
+                    <div id="req-headers" class="req-panel flex flex-col h-full p-4 hidden overflow-y-auto">
+                        <button id="addHeaderBtn"
+                            class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition">+
+                            Add Header</button>
+                        <div id="headerRows" class="space-y-2"></div>
+                    </div>
+
+                    <div id="req-scripts" class="req-panel flex flex-col h-full p-4 hidden overflow-y-auto">
+                        <div class="text-xs text-slate-500 mb-2">Executes <b>before</b> request. Set vars:
+                            <code>pm.environment.set("key", "val")</code></div>
+                        <textarea id="preRequestScript"
+                            class="flex-1 w-full p-4 font-mono text-sm bg-slate-900 text-blue-300 rounded outline-none resize-none shadow-inner"
+                            spellcheck="false"></textarea>
+                    </div>
+
+                    <div id="req-tests" class="req-panel flex flex-col h-full p-4 hidden overflow-y-auto">
+                        <div class="text-xs text-slate-500 mb-2">Executes <b>after</b> request. Write assertions in
+                            JavaScript.</div>
+                        <textarea id="testScript"
+                            class="flex-1 w-full p-4 font-mono text-sm bg-slate-900 text-green-300 rounded outline-none resize-none shadow-inner"
+                            spellcheck="false">
+// Example Assertions
+pm.test("Status code is 200", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+
+pm.test("Response time is less than 500ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(500);
+});
+</textarea>
+                    </div>
+
+                    <div id="req-body" class="req-panel flex flex-col h-full">
+                        <div
+                            class="px-4 py-2 border-b border-slate-100 dark:border-slate-800 flex gap-4 bg-slate-50 dark:bg-slate-900 shrink-0 flex-wrap">
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="radio" name="bodyType" value="none"
+                                    class="text-orange-500 focus:ring-orange-500">
+                                <span class="ml-2 text-sm font-medium">None</span>
+                            </label>
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="radio" name="bodyType" value="json"
+                                    class="text-orange-500 focus:ring-orange-500" checked>
+                                <span class="ml-2 text-sm font-medium">JSON</span>
+                            </label>
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="radio" name="bodyType" value="formdata"
+                                    class="text-orange-500 focus:ring-orange-500">
+                                <span class="ml-2 text-sm font-medium">Form Data</span>
+                            </label>
+                        </div>
+
+                        <div class="flex-1 relative">
+                            <textarea id="jsonPayload"
+                                class="absolute inset-0 w-full h-full p-4 bg-slate-900 text-green-400 font-mono text-sm resize-none"
+                                spellcheck="false">
+{
+  "name": "Leanne Graham",
+  "username": "Bret",
+  "email": "Sincere@april.biz"
+}</textarea>
+
+                            <div id="formDataContainer"
+                                class="hidden absolute inset-0 bg-white dark:bg-slate-950 p-4 overflow-y-auto">
+                                <button id="addFormDataBtn"
+                                    class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition">+
+                                    Add Form Field</button>
+                                <div id="formDataRows" class="space-y-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div
+                class="flex-1 flex flex-col bg-slate-900 dark:bg-black overflow-hidden text-slate-200 border-t border-slate-700">
+                <div
+                    class="flex justify-between items-center px-4 py-2 bg-slate-800 border-b border-slate-700 shrink-0">
+                    <div class="flex gap-4">
+                        <button class="res-tab-btn text-orange-400 font-bold text-sm"
+                            data-target="res-body">Body</button>
+                        <button class="res-tab-btn text-slate-400 hover:text-slate-200 font-semibold text-sm transition"
+                            data-target="res-headers">Headers</button>
+                        <button
+                            class="res-tab-btn text-slate-400 hover:text-slate-200 font-semibold text-sm transition flex items-center gap-1"
+                            data-target="res-test-results">
+                            Test Results <span id="testBadge"
+                                class="hidden px-1.5 rounded-full bg-green-500 text-white text-[10px] font-bold">0/0</span>
+                        </button>
+                        <button class="res-tab-btn text-slate-400 hover:text-slate-200 font-semibold text-sm transition"
+                            data-target="res-preview">Preview</button>
+                    </div>
+
+                    <div class="flex gap-4 text-xs font-mono">
+                        <div class="flex items-center gap-1"><span class="text-slate-400">Status:</span><span
+                                id="resStatus" class="font-bold text-slate-500">-</span></div>
+                        <div class="flex items-center gap-1"><span class="text-slate-400">Time:</span><span id="resTime"
+                                class="font-bold text-slate-500">-</span></div>
+                        <div class="flex items-center gap-1"><span class="text-slate-400">Size:</span><span id="resSize"
+                                class="font-bold text-slate-500">-</span></div>
+                    </div>
+                </div>
+
+                <div class="flex-1 relative overflow-hidden bg-slate-900">
+                    <pre id="res-body"
+                        class="res-panel absolute inset-0 p-4 font-mono text-sm overflow-auto text-slate-500 whitespace-pre-wrap break-all focus:outline-none"
+                        tabindex="0">Hit 'Send' to get a response...</pre>
+                    <pre id="res-headers"
+                        class="res-panel absolute inset-0 p-4 font-mono text-sm overflow-auto text-blue-300 whitespace-pre-wrap break-all hidden"></pre>
+                    <iframe id="res-preview" class="res-panel absolute inset-0 w-full h-full bg-white hidden"
+                        sandbox="allow-scripts"></iframe>
+
+                    <div id="res-test-results"
+                        class="res-panel absolute inset-0 p-4 font-mono text-sm overflow-auto hidden bg-slate-900">
+                        <div id="testOutput" class="space-y-2 text-slate-400">No tests executed yet. Write assertions in
+                            the 'Tests' tab.</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 0. THEME
+        const htmlEl = document.documentElement;
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) htmlEl.classList.add('dark');
+        document.getElementById('themeToggle').addEventListener('click', () => { htmlEl.classList.toggle('dark'); localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light'); });
+
+        // 1. STATE MANAGEMENT
+        const STORE = {
+            history: JSON.parse(localStorage.getItem('mp_history_v4')) || [],
+            saved: JSON.parse(localStorage.getItem('mp_saved_v4')) || [],
+            env: JSON.parse(localStorage.getItem('mp_env_v4')) || [{ key: 'base_url', val: 'https://jsonplaceholder.typicode.com' }],
+
+            saveHistory(item) {
+                if (this.history.length > 0 && this.history[0].url === item.url && this.history[0].method === item.method) return;
+                this.history.unshift(item);
+                if (this.history.length > 30) this.history.pop();
+                localStorage.setItem('mp_history_v4', JSON.stringify(this.history));
+                UI.renderHistory();
+            },
+            saveToCollection(name, item) {
+                item.name = name;
+                this.saved.unshift(item);
+                localStorage.setItem('mp_saved_v4', JSON.stringify(this.saved));
+                UI.renderSaved();
+                UI.showToast("Saved to Collections");
+            },
+            deleteSaved(index) {
+                this.saved.splice(index, 1);
+                localStorage.setItem('mp_saved_v4', JSON.stringify(this.saved));
+                UI.renderSaved();
+            },
+            saveEnv() {
+                const envRows = document.querySelectorAll('#envList .env-row');
+                this.env = [];
+                envRows.forEach(row => {
+                    const k = row.querySelector('.env-key').value.trim();
+                    if (k) this.env.push({ key: k, val: row.querySelector('.env-val').value });
+                });
+                localStorage.setItem('mp_env_v4', JSON.stringify(this.env));
+            },
+            interpolate(text) {
+                if (!text) return "";
+                let result = String(text);
+                this.env.forEach(e => { result = result.replace(new RegExp(`\\{\\{${e.key}\\}\\}`, 'g'), e.val); });
+                return result;
+            }
+        };
+
+        // 2. UI MANIPULATION
+        const UI = {
+            initTabs() {
+                document.querySelectorAll('.side-tab-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.side-tab-btn').forEach(b => b.classList.remove('side-tab-active'));
+                        document.querySelectorAll('.side-panel').forEach(p => p.classList.add('hidden'));
+                        e.target.classList.add('side-tab-active');
+                        document.getElementById(e.target.dataset.target).classList.remove('hidden');
+                    });
+                });
+                document.querySelectorAll('.req-tab-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.req-tab-btn').forEach(b => { b.classList.remove('tab-active'); b.classList.add('border-transparent'); });
+                        document.querySelectorAll('.req-panel').forEach(p => p.classList.add('hidden'));
+                        const targetBtn = e.target.closest('button');
+                        targetBtn.classList.add('tab-active'); targetBtn.classList.remove('border-transparent');
+                        document.getElementById(targetBtn.dataset.target).classList.remove('hidden');
+                        document.getElementById(targetBtn.dataset.target).classList.add('flex');
+                    });
+                });
+                document.querySelectorAll('.res-tab-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.res-tab-btn').forEach(b => { b.classList.remove('text-orange-400'); b.classList.add('text-slate-400'); });
+                        document.querySelectorAll('.res-panel').forEach(p => p.classList.add('hidden'));
+                        const targetBtn = e.target.closest('button');
+                        targetBtn.classList.add('text-orange-400'); targetBtn.classList.remove('text-slate-400');
+                        document.getElementById(targetBtn.dataset.target).classList.remove('hidden');
+                    });
+                });
+            },
+            createKVRow(containerId, key = '', val = '', mode = 'default') {
+                const row = document.createElement('div');
+                const isEnv = mode === 'env', isForm = mode === 'formdata';
+                row.className = `flex gap-2 items-center ${isEnv ? 'env-row' : 'kv-row'}`;
+                const inputClass = "px-3 py-1.5 border border-slate-300 dark:border-slate-700 rounded outline-none focus:border-orange-500 font-mono text-xs bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors";
+
+                let typeSelector = '';
+                if (isForm) typeSelector = `<select class="form-type-sel px-2 py-1.5 border border-slate-300 dark:border-slate-700 rounded outline-none font-mono text-xs bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 cursor-pointer"><option value="text">Text</option><option value="file">File</option></select>`;
+
+                row.innerHTML = `
+                    <input type="text" placeholder="Key" value="${key}" class="${isForm ? 'w-1/4' : 'w-1/3'} ${inputClass} ${isEnv ? 'env-key' : 'kv-key'}">
+                    ${typeSelector}
+                    <input type="text" placeholder="Value" value="${val}" class="flex-1 ${inputClass} ${isEnv ? 'env-val' : 'kv-val'}">
+                    <button type="button" class="text-slate-400 hover:text-red-500 p-1 font-bold" onclick="this.parentElement.remove(); ${isEnv ? 'STORE.saveEnv()' : ''}">✕</button>
+                `;
+
+                if (isForm) {
+                    const sel = row.querySelector('.form-type-sel'), valInput = row.querySelector('.kv-val');
+                    sel.addEventListener('change', (e) => {
+                        if (e.target.value === 'file') { valInput.type = 'file'; valInput.classList.remove('px-3'); }
+                        else { valInput.type = 'text'; valInput.classList.add('px-3'); }
+                    });
+                }
+                if (isEnv) row.querySelectorAll('input').forEach(inp => inp.addEventListener('blur', () => STORE.saveEnv()));
+                document.getElementById(containerId).appendChild(row);
+            },
+            renderList(dataArray, containerId, isSaved = false) {
+                const list = document.getElementById(containerId);
+                list.innerHTML = '';
+                dataArray.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'p-2 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-orange-400 truncate text-xs shadow-sm group transition-colors relative';
+                    let color = item.method === 'GET' ? 'text-green-500' : item.method === 'POST' ? 'text-orange-500' : item.method === 'DELETE' ? 'text-red-500' : 'text-blue-500';
+
+                    let header = isSaved ? `<div class="font-bold text-slate-700 dark:text-slate-200 mb-1">${item.name}</div>` : `<span class="text-[10px] text-slate-400">${new Date(item.time).toLocaleTimeString()}</span>`;
+                    let delBtn = isSaved ? `<button class="absolute top-2 right-2 text-slate-400 hover:text-red-500 hidden group-hover:block" onclick="event.stopPropagation(); STORE.deleteSaved(${index})">✕</button>` : '';
+
+                    div.innerHTML = `
+                        ${header}
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold ${color}">${item.method}</span>
+                            <span class="text-slate-600 dark:text-slate-400 truncate">${item.url}</span>
+                        </div>
+                        ${delBtn}
+                    `;
+                    div.onclick = () => {
+                        document.getElementById('httpMethod').value = item.method;
+                        document.getElementById('endpointUrl').value = item.url;
+                        if (item.bodyType) document.querySelector(`input[name="bodyType"][value="${item.bodyType}"]`).click();
+                    };
+                    list.appendChild(div);
+                });
+            },
+            renderHistory() { this.renderList(STORE.history, 'historyList'); },
+            renderSaved() { this.renderList(STORE.saved, 'savedList', true); },
+            renderEnv() { document.getElementById('envList').innerHTML = ''; STORE.env.forEach(e => UI.createKVRow('envList', e.key, e.val, 'env')); },
+            showToast(msg) {
+                const toast = document.getElementById('toast'); document.getElementById('toastMsg').textContent = msg;
+                toast.classList.remove('translate-y-[-150%]'); setTimeout(() => toast.classList.add('translate-y-[-150%]'), 2500);
+            },
+            formatBytes(bytes) { if (bytes === 0) return '0 B'; const i = Math.floor(Math.log(bytes) / Math.log(1024)); return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + ' ' + ['B', 'KB', 'MB'][i]; }
+        };
+
+        // 3. LISTENERS
+        UI.initTabs(); UI.renderHistory(); UI.renderSaved(); UI.renderEnv();
+
+        document.getElementById('addParamBtn').addEventListener('click', () => UI.createKVRow('paramRows'));
+        document.getElementById('addHeaderBtn').addEventListener('click', () => UI.createKVRow('headerRows'));
+        document.getElementById('addFormDataBtn').addEventListener('click', () => UI.createKVRow('formDataRows', '', '', 'formdata'));
+        document.getElementById('addEnvBtn').addEventListener('click', () => { UI.createKVRow('envList', '', '', 'env'); STORE.saveEnv(); });
+        document.getElementById('clearHistoryBtn').addEventListener('click', () => { STORE.history = []; localStorage.removeItem('mp_history_v4'); UI.renderHistory(); });
+
+        document.getElementById('authType').addEventListener('change', (e) => {
+            document.querySelectorAll('.auth-panel').forEach(p => p.classList.add('hidden'));
+            if (e.target.value === 'bearer') document.getElementById('bearerTokenArea').classList.remove('hidden');
+            if (e.target.value === 'basic') document.getElementById('basicAuthArea').classList.remove('hidden');
+        });
+
+        document.querySelectorAll('input[name="bodyType"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                document.getElementById('jsonPayload').classList.toggle('hidden', e.target.value !== 'json');
+                document.getElementById('formDataContainer').classList.toggle('hidden', e.target.value !== 'formdata');
+            });
+        });
+
+        // 4. SAVE COLLECTION
+        document.getElementById('saveReqBtn').addEventListener('click', () => {
+            const name = prompt("Enter a name for this request:");
+            if (name) {
+                STORE.saveToCollection(name, {
+                    method: document.getElementById('httpMethod').value,
+                    url: document.getElementById('endpointUrl').value,
+                    bodyType: document.querySelector('input[name="bodyType"]:checked').value,
+                    time: Date.now()
+                });
+                document.querySelector('button[data-target="panel-saved"]').click(); // Open saved tab
+            }
+        });
+
+        // 5. CODE GENERATOR
+        const CodeGen = {
+            currentConfig: {},
+            generateCurl() {
+                let cmd = `curl --request ${this.currentConfig.method} \\\n  --url '${this.currentConfig.url}'`;
+                this.currentConfig.headers.forEach((v, k) => cmd += ` \\\n  --header '${k}: ${v}'`);
+                if (this.currentConfig.bodyType === 'json' && this.currentConfig.body) {
+                    cmd += ` \\\n  --data '${this.currentConfig.body.replace(/'/g, "\\'")}'`;
+                } else if (this.currentConfig.bodyType === 'formdata') {
+                    cmd += ` \\\n  # Form Data (Files/Text) mapped internally`;
+                }
+                return cmd;
+            },
+            generateFetch() {
+                let opts = `{\n  method: '${this.currentConfig.method}',\n  headers: {\n`;
+                this.currentConfig.headers.forEach((v, k) => opts += `    '${k}': '${v}',\n`);
+                opts += `  }`;
+                if (this.currentConfig.bodyType === 'json' && this.currentConfig.body) opts += `,\n  body: JSON.stringify(${this.currentConfig.body})`;
+                opts += `\n}`;
+                return `fetch('${this.currentConfig.url}', ${opts})\n  .then(res => res.json())\n  .then(console.log)\n  .catch(console.error);`;
+            },
+            generatePython() {
+                let py = `import requests\n\nurl = "${this.currentConfig.url}"\n\nheaders = {\n`;
+                this.currentConfig.headers.forEach((v, k) => py += `    "${k}": "${v}",\n`);
+                py += `}\n\n`;
+                if (this.currentConfig.bodyType === 'json' && this.currentConfig.body) {
+                    py += `payload = ${this.currentConfig.body}\nresponse = requests.request("${this.currentConfig.method}", url, json=payload, headers=headers)\n`;
+                } else {
+                    py += `response = requests.request("${this.currentConfig.method}", url, headers=headers)\n`;
+                }
+                py += `\nprint(response.text)`;
+                return py;
+            }
+        };
+
+        document.getElementById('openCodeBtn').addEventListener('click', () => {
+            // Build temporary config for code gen
+            const rawUrl = document.getElementById('endpointUrl').value;
+            if (!rawUrl) { UI.showToast("Enter a URL first"); return; }
+
+            let finalUrl = STORE.interpolate(rawUrl);
+            const headers = new Map();
+            document.getElementById('headerRows').querySelectorAll('.kv-row').forEach(row => {
+                const k = STORE.interpolate(row.querySelector('.kv-key').value.trim());
+                if (k) headers.set(k, STORE.interpolate(row.querySelector('.kv-val').value));
+            });
+
+            const authType = document.getElementById('authType').value;
+            if (authType === 'bearer') headers.set('Authorization', `Bearer ${STORE.interpolate(document.getElementById('bearerToken').value.trim())}`);
+            if (authType === 'basic') headers.set('Authorization', `Basic ${btoa(STORE.interpolate(document.getElementById('basicUser').value) + ':' + STORE.interpolate(document.getElementById('basicPass').value))}`);
+
+            let bodyType = document.querySelector('input[name="bodyType"]:checked').value;
+            let bodyContent = null;
+            if (bodyType === 'json') {
+                bodyContent = STORE.interpolate(document.getElementById('jsonPayload').value);
+                headers.set('Content-Type', 'application/json');
+            }
+
+            CodeGen.currentConfig = { method: document.getElementById('httpMethod').value, url: finalUrl, headers, bodyType, body: bodyContent };
+
+            document.getElementById('codeModal').classList.remove('hidden');
+            document.querySelector('.code-tab-btn[data-lang="curl"]').click(); // trigger curl render
+        });
+
+        document.querySelectorAll('.code-tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.code-tab-btn').forEach(b => { b.classList.remove('text-orange-500', 'border-orange-500'); b.classList.add('text-slate-500', 'border-transparent'); });
+                e.target.classList.add('text-orange-500', 'border-orange-500'); e.target.classList.remove('text-slate-500', 'border-transparent');
+
+                const lang = e.target.dataset.lang;
+                const out = document.getElementById('codeOutput');
+                if (lang === 'curl') out.textContent = CodeGen.generateCurl();
+                if (lang === 'fetch') out.textContent = CodeGen.generateFetch();
+                if (lang === 'python') out.textContent = CodeGen.generatePython();
+            });
+        });
+
+        document.getElementById('copyCodeBtn').addEventListener('click', () => {
+            navigator.clipboard.writeText(document.getElementById('codeOutput').textContent).then(() => UI.showToast("Code Copied!"));
+        });
+
+        // 6. CORE FETCH ENGINE (WITH TESTS)
+        document.getElementById('sendBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('sendBtn');
+            const rawUrl = document.getElementById('endpointUrl').value;
+            const method = document.getElementById('httpMethod').value;
+            const bodyType = document.querySelector('input[name="bodyType"]:checked').value;
+            const outBody = document.getElementById('res-body'), outHeaders = document.getElementById('res-headers'), outPreview = document.getElementById('res-preview'), stIndicator = document.getElementById('resStatus');
+
+            if (!rawUrl) { UI.showToast("URL cannot be empty"); return; }
+
+            // Pre-request script
+            const preScript = document.getElementById('preRequestScript').value;
+            if (preScript.trim()) {
+                const pm = {
+                    environment: {
+                        set: (k, v) => {
+                            const exist = STORE.env.find(e => e.key === k);
+                            if (exist) exist.val = String(v); else STORE.env.push({ key: k, val: String(v) });
+                            STORE.saveEnv(); UI.renderEnv();
+                        }
+                    }
+                };
+                try { new Function('pm', preScript)(pm); } catch (e) { console.error("Pre-request script error:", e); }
+            }
+
+            let finalUrl = STORE.interpolate(rawUrl);
+            const headers = new Headers();
+
+            document.getElementById('headerRows').querySelectorAll('.kv-row').forEach(row => {
+                const k = STORE.interpolate(row.querySelector('.kv-key').value.trim());
+                if (k) headers.append(k, STORE.interpolate(row.querySelector('.kv-val').value));
+            });
+
+            // Handle AUTH
+            const authType = document.getElementById('authType').value;
+            if (authType === 'bearer') {
+                const token = STORE.interpolate(document.getElementById('bearerToken').value.trim());
+                if (token) headers.append('Authorization', `Bearer ${token}`);
+            } else if (authType === 'basic') {
+                const user = STORE.interpolate(document.getElementById('basicUser').value);
+                const pass = STORE.interpolate(document.getElementById('basicPass').value);
+                if (user || pass) headers.append('Authorization', `Basic ${btoa(user + ':' + pass)}`);
+            }
+
+            let finalBody = null;
+            if (method !== 'GET' && method !== 'HEAD' && bodyType !== 'none') {
+                if (bodyType === 'json') {
+                    finalBody = STORE.interpolate(document.getElementById('jsonPayload').value);
+                    headers.append('Content-Type', 'application/json');
+                } else if (bodyType === 'formdata') {
+                    finalBody = new FormData();
+                    document.getElementById('formDataRows').querySelectorAll('.kv-row').forEach(row => {
+                        const k = STORE.interpolate(row.querySelector('.kv-key').value.trim());
+                        const valInput = row.querySelector('.kv-val');
+                        if (k) {
+                            if (valInput.type === 'file' && valInput.files.length > 0) finalBody.append(k, valInput.files[0]);
+                            else if (valInput.type === 'text') finalBody.append(k, STORE.interpolate(valInput.value));
+                        }
+                    });
+                }
+            }
+
+            // Execute
+            btn.classList.add('opacity-50', 'cursor-wait');
+            outBody.textContent = `Sending...`; outHeaders.textContent = ""; outPreview.srcdoc = ""; stIndicator.textContent = "Loading...";
+
+            // Reset Tests
+            document.getElementById('testOutput').innerHTML = "Running tests...";
+            document.getElementById('testBadge').classList.add('hidden');
+
+            try {
+                STORE.saveHistory({ method, url: rawUrl, bodyType, time: Date.now() });
+
+                const startTime = performance.now();
+                const response = await fetch(finalUrl, { method, headers, body: finalBody });
+                const timeTakenMs = Math.round(performance.now() - startTime);
+
+                const blob = await response.blob();
+                const responseText = await blob.text();
+
+                stIndicator.textContent = `${response.status} ${response.statusText}`;
+                stIndicator.className = response.ok ? 'font-bold text-green-400' : 'font-bold text-red-400';
+                document.getElementById('resTime').textContent = `${timeTakenMs} ms`;
+                document.getElementById('resSize').textContent = UI.formatBytes(blob.size);
+
+                let resHeadersText = ""; response.headers.forEach((val, key) => { resHeadersText += `${key}: ${val}\n`; });
+                outHeaders.textContent = resHeadersText || "No headers returned.";
+
+                // Parse Body
+                let parsedJson = null;
+                const contentType = response.headers.get('content-type') || '';
+
+                if (contentType.includes('text/html') || contentType.includes('image/svg')) {
+                    outPreview.srcdoc = responseText; outBody.textContent = responseText; outBody.classList.replace('text-green-400', 'text-slate-400');
+                } else {
+                    outPreview.srcdoc = `<div style="font-family:sans-serif; padding:20px; color:#666;">Preview not available.</div>`;
+                    if (blob.size === 0) outBody.textContent = "(Empty Response)";
+                    else {
+                        try {
+                            parsedJson = JSON.parse(responseText);
+                            outBody.textContent = JSON.stringify(parsedJson, null, 2);
+                            outBody.classList.replace('text-slate-400', 'text-green-400');
+                        } catch (e) { outBody.textContent = responseText; outBody.classList.replace('text-green-400', 'text-slate-400'); }
+                    }
+                }
+
+                // --- TEST ENGINE EXECUTION ---
+                const testCode = document.getElementById('testScript').value;
+                if (testCode.trim()) {
+                    let testResults = [];
+                    let passCount = 0;
+
+                    const pm = {
+                        response: { code: response.status, responseTime: timeTakenMs, json: () => parsedJson, text: () => responseText },
+                        test: function (name, fn) {
+                            try { fn(); testResults.push({ name, passed: true }); passCount++; }
+                            catch (e) { testResults.push({ name, passed: false, error: e.message }); }
+                        },
+                        expect: function (val) {
+                            return {
+                                to: {
+                                    equal: (expected) => { if (val !== expected) throw new Error(`Expected ${expected} but got ${val}`); },
+                                    be: { below: (expected) => { if (val >= expected) throw new Error(`Expected ${val} to be below ${expected}`); } }
+                                }
+                            }
+                        }
+                    };
+
+                    try {
+                        new Function('pm', testCode)(pm);
+
+                        // Render Test Results
+                        let html = '';
+                        testResults.forEach(res => {
+                            if (res.passed) html += `<div class="p-2 bg-green-900/20 border border-green-800 rounded flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span class="text-green-400">${res.name}</span></div>`;
+                            else html += `<div class="p-2 bg-red-900/20 border border-red-800 rounded"><div class="flex items-center gap-2 mb-1"><svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> <span class="text-red-400 font-bold">${res.name}</span></div><div class="text-xs text-red-300 ml-6 font-mono">${res.error}</div></div>`;
+                        });
+                        document.getElementById('testOutput').innerHTML = html || "<div class='text-slate-500'>No valid tests executed.</div>";
+
+                        // Update Badge
+                        const badge = document.getElementById('testBadge');
+                        badge.textContent = `${passCount}/${testResults.length}`;
+                        badge.classList.remove('hidden', 'bg-green-500', 'bg-red-500');
+                        badge.classList.add(passCount === testResults.length ? 'bg-green-500' : 'bg-red-500');
+
+                    } catch (e) {
+                        document.getElementById('testOutput').innerHTML = `<div class="text-red-500 font-bold">Test Syntax Error:</div><div class="text-xs text-red-400 mt-1">${e.message}</div>`;
+                    }
+                } else {
+                    document.getElementById('testOutput').innerHTML = "<div class='text-slate-500'>No tests written.</div>";
+                }
+
+            } catch (error) {
+                stIndicator.textContent = "Network Error"; stIndicator.className = "font-bold text-red-500";
+                outBody.textContent = `Fetch Failed.\n\n${error.message}`;
+            } finally {
+                btn.classList.remove('opacity-50', 'cursor-wait');
+            }
+        });
+    </script>
+</body>
+
+</html>
