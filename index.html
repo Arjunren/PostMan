@@ -72,6 +72,9 @@
                 </a>
             </div>
             <div class="hidden md:block h-4 w-px bg-slate-700"></div>
+            <button onclick="document.getElementById('curlModal').showModal()" class="text-slate-300 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800" title="Import cURL">
+                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </button>
             <button onclick="STORE.exportData()" class="text-slate-300 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800" title="Export Workspace">
                 <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             </button>
@@ -135,6 +138,20 @@
                 <textarea id="codeOutput" class="hidden"></textarea>
             </div>
         </dialog>
+        <dialog id="curlModal" class="bg-white dark:bg-slate-900 w-[90%] max-w-[600px] rounded-xl shadow-2xl p-0 border border-slate-200 dark:border-slate-700 m-auto text-slate-800 dark:text-slate-200">
+            <div class="flex justify-between items-center px-5 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 rounded-t-xl">
+                <h2 class="font-bold text-base md:text-lg">Import cURL</h2>
+                <button onclick="document.getElementById('curlModal').close()" class="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+            </div>
+            <div class="p-5">
+                <p class="text-xs text-slate-500 mb-2">Paste your cURL command here to auto-fill the request.</p>
+                <textarea id="curlInput" class="w-full h-40 p-3 text-xs md:text-sm font-mono border border-slate-300 dark:border-slate-700 rounded bg-slate-50 dark:bg-slate-950 outline-none focus:border-brand" placeholder="curl -X POST https://api.example.com ..."></textarea>
+            </div>
+            <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2 bg-slate-50 dark:bg-slate-950 rounded-b-xl">
+                <button onclick="document.getElementById('curlModal').close()" class="px-4 py-2 rounded font-semibold text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 transition">Cancel</button>
+                <button id="confirmCurlBtn" class="px-4 py-2 bg-brand hover:bg-orange-600 text-white rounded font-semibold shadow-md transition">Import</button>
+            </div>
+        </dialog>
         <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden md:hidden"></div>
         <aside id="sidebar" class="w-72 bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 z-40 transition-transform duration-300 ease-in-out fixed md:relative h-full -translate-x-full md:translate-x-0">
             <div class="flex border-b border-slate-200 dark:border-slate-800 text-xs font-bold shrink-0">
@@ -186,8 +203,11 @@
                     </button>
                 </div>
                 <div class="flex gap-2 w-full md:w-auto">
-                    <button id="saveReqBtn" class="flex-1 md:flex-none justify-center bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm">
+                    <button id="saveReqBtn" class="flex-1 md:flex-none justify-center bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm" title="Save Request (Ctrl+S)">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg> Save
+                    </button>
+                    <button id="resetTabBtn" class="flex-1 md:flex-none justify-center bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm" title="Clear Tab">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Reset
                     </button>
                     <button id="openCodeBtn" class="flex-1 md:flex-none justify-center bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg> Code
@@ -252,7 +272,10 @@
                             <label class="inline-flex items-center cursor-pointer group"><input type="radio" name="bodyType" value="graphql" class="text-brand focus:ring-brand accent-brand"><span class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand flex items-center gap-1"><svg class="w-3 h-3 md:w-4 md:h-4 text-pink-500" viewBox="0 0 400 400"><path fill="currentColor" d="M200 40.5L34.5 136v127L200 358.5l165.5-95.5v-127L200 40.5zM200 75l135.5 78v93L200 324l-135.5-78v-93L200 75z"/><circle fill="currentColor" cx="200" cy="40.5" r="28.5"/><circle fill="currentColor" cx="34.5" cy="136" r="28.5"/><circle fill="currentColor" cx="34.5" cy="263" r="28.5"/><circle fill="currentColor" cx="200" cy="358.5" r="28.5"/><circle fill="currentColor" cx="365.5" cy="263" r="28.5"/><circle fill="currentColor" cx="365.5" cy="136" r="28.5"/></svg> GraphQL</span></label>
                         </div>
                         <div class="flex-1 relative bg-white dark:bg-slate-950">
-                            <div id="jsonBodyContainer" class="absolute inset-0 h-full w-full"><textarea id="jsonPayload">{\n}</textarea></div>
+                            <div id="jsonBodyContainer" class="absolute inset-0 h-full w-full">
+                                <button id="beautifyJsonBtn" class="absolute top-2 right-4 z-10 text-[10px] bg-slate-800 border border-slate-600 hover:bg-slate-700 text-white py-1 px-2 rounded shadow transition">Beautify</button>
+                                <textarea id="jsonPayload">{\n}</textarea>
+                            </div>
                             <div id="formDataContainer" class="hidden absolute inset-0 p-2 md:p-4 overflow-y-auto bg-white dark:bg-slate-950">
                                 <button id="addFormDataBtn" class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition shadow-sm">+ Add Field</button>
                                 <div id="formDataRows" class="space-y-2"></div>
@@ -403,6 +426,13 @@
                 this.saved = this.saved.filter(s => s.id !== id);
                 localStorage.setItem('mp_saved_v5', JSON.stringify(this.saved));
                 UI.renderSaved();
+            },
+            duplicateSaved(id) {
+                const item = this.saved.find(s => s.id === id);
+                if(item) {
+                    const copy = JSON.parse(JSON.stringify(item));
+                    this.saveToCollection(copy.folder, copy.name + " (Copy)", copy);
+                }
             },
             saveEnv() {
                 const rows = document.querySelectorAll('#envList .env-row');
@@ -586,7 +616,7 @@
                         const div = document.createElement('div');
                         let color = item.method === 'GET' ? 'text-green-500' : item.method === 'POST' ? 'text-brand' : item.method === 'DELETE' ? 'text-red-500' : 'text-blue-500';
                         div.className = 'p-2 mb-1 bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-brand truncate text-xs shadow-sm group relative ml-2';
-                        div.innerHTML = `<div class="font-bold text-slate-700 dark:text-slate-200 mb-0.5">${item.name}</div><div class="flex gap-2"><span class="font-bold ${color}">${item.method}</span><span class="text-slate-500 dark:text-slate-400 truncate">${item.url}</span></div><button class="absolute top-2 right-2 text-slate-400 hover:text-red-500 hidden group-hover:block" onclick="event.stopPropagation(); STORE.deleteSaved(${item.id})">&times;</button>`;
+                        div.innerHTML = `<div class="font-bold text-slate-700 dark:text-slate-200 mb-0.5">${item.name}</div><div class="flex gap-2"><span class="font-bold ${color}">${item.method}</span><span class="text-slate-500 dark:text-slate-400 truncate">${item.url}</span></div><div class="absolute top-2 right-2 hidden group-hover:flex gap-2"><button class="text-slate-400 hover:text-brand" onclick="event.stopPropagation(); STORE.duplicateSaved(${item.id})" title="Duplicate"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button><button class="text-slate-400 hover:text-red-500 font-bold" onclick="event.stopPropagation(); STORE.deleteSaved(${item.id})" title="Delete">&times;</button></div>`;
                         div.onclick = () => {
                             document.getElementById('httpMethod').value = item.method; document.getElementById('endpointUrl').value = item.url;
                             if (item.bodyType) document.querySelector(`input[name="bodyType"][value="${item.bodyType}"]`).click();
@@ -693,6 +723,84 @@
                 if(text && text !== "Hit 'Send' to get a response..." && text !== "Sending...") {
                     navigator.clipboard.writeText(text).then(() => UI.showToast("Response Copied!"));
                 }
+            });
+
+            document.getElementById('beautifyJsonBtn').addEventListener('click', () => {
+                try {
+                    const val = Editors.instances.json.getValue();
+                    const parsed = JSON.parse(val);
+                    Editors.instances.json.setValue(JSON.stringify(parsed, null, 2));
+                    UI.showToast("JSON Beautified");
+                } catch(e) {
+                    showAlert("Invalid JSON", "Cannot beautify. Please check your syntax.");
+                }
+            });
+
+            document.getElementById('resetTabBtn').addEventListener('click', () => {
+                document.getElementById('endpointUrl').value = '';
+                document.getElementById('httpMethod').value = 'GET';
+                document.getElementById('paramRows').innerHTML = '';
+                document.getElementById('headerRows').innerHTML = '';
+                document.getElementById('formDataRows').innerHTML = '';
+                Editors.instances.json.setValue('{\n}');
+                Editors.instances.gqlQuery.setValue('query {\n}');
+                Editors.instances.gqlVars.setValue('{\n}');
+                Editors.instances.preScript.setValue('');
+                Editors.instances.tests.setValue('pm.test("Status code is 200", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});');
+                document.getElementById('authType').value = 'none';
+                document.getElementById('authType').dispatchEvent(new Event('change'));
+                document.querySelector('input[name="bodyType"][value="json"]').click();
+                UI.updateActiveTab('', 'GET');
+                UI.showToast('Tab Reset');
+            });
+
+            document.getElementById('confirmCurlBtn').addEventListener('click', () => {
+                const curlStr = document.getElementById('curlInput').value.trim();
+                if(!curlStr) return showAlert("Empty", "Please paste a cURL command.");
+
+                let method = "GET";
+                let url = "";
+                let body = "";
+                const headers = [];
+
+                const urlMatch = curlStr.match(/'(https?:\/\/[^']+)'/) || curlStr.match(/"(https?:\/\/[^"]+)"/) || curlStr.match(/(https?:\/\/[^\s'"]+)/);
+                if(urlMatch) url = urlMatch[1];
+
+                const methodMatch = curlStr.match(/-X\s+([A-Z]+)/);
+                if(methodMatch) method = methodMatch[1];
+
+                const headerRegex = /-H\s+['"]([^'"]+)['"]/g;
+                let hMatch;
+                while((hMatch = headerRegex.exec(curlStr)) !== null) {
+                    let parts = hMatch[1].split(':');
+                    if(parts.length >= 2) headers.push({k: parts[0].trim(), v: parts.slice(1).join(':').trim()});
+                }
+
+                const dataMatch = curlStr.match(/--data(?:-raw|-binary)?\s+['"]([\s\S]*?)['"]/) || curlStr.match(/-d\s+['"]([\s\S]*?)['"]/);
+                if(dataMatch) {
+                    body = dataMatch[1];
+                    if(method === "GET") method = "POST";
+                }
+
+                document.getElementById('endpointUrl').value = url;
+                document.getElementById('httpMethod').value = method;
+
+                document.getElementById('headerRows').innerHTML = '';
+                headers.forEach(h => UI.createKVRow('headerRows', h.k, h.v));
+
+                if(body) {
+                    document.querySelector('input[name="bodyType"][value="json"]').click();
+                    try {
+                        Editors.instances.json.setValue(JSON.stringify(JSON.parse(body), null, 2));
+                    } catch(e) {
+                        Editors.instances.json.setValue(body);
+                    }
+                }
+
+                UI.updateActiveTab(url, method);
+                document.getElementById('curlModal').close();
+                document.getElementById('curlInput').value = '';
+                UI.showToast("cURL Imported!");
             });
 
             document.getElementById('saveReqBtn').addEventListener('click', () => {
@@ -913,6 +1021,8 @@
             if (e.ctrlKey && e.shiftKey && e.key === 'J') { e.preventDefault(); }
             if (e.ctrlKey && e.key === 'u' || e.key === 'U') { e.preventDefault(); }
             if (e.ctrlKey && e.shiftKey && e.key === 'C') { e.preventDefault(); }
+            if (e.ctrlKey && e.key === 's') { e.preventDefault(); document.getElementById('saveReqBtn').click(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); document.getElementById('sendBtn').click(); }
         });
     </script>
 </body>
