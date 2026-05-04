@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,131 +9,42 @@
         tailwind.config = { darkMode: 'class', theme: { extend: { colors: { slate: { 950: '#020617' }, brand: '#f97316' } } } }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/material-ocean.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/material-ocean.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
     <style>
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        .dark ::-webkit-scrollbar-thumb {
-            background: #475569;
-        }
-
-        .dark ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-
-        .hide-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .hide-scroll {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        body {
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        dialog::backdrop {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(4px);
-        }
-
-        .CodeMirror {
-            height: 100% !important;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 13px;
-            border-radius: 0.375rem;
-        }
-
-        .tab-active {
-            border-bottom-color: #f97316 !important;
-            color: #ea580c !important;
-        }
-
-        .side-tab-active {
-            background-color: #e2e8f0;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .dark .side-tab-active {
-            background-color: #1e293b;
-            color: #f8fafc;
-        }
-
-        .req-tab-active {
-            background-color: #ffffff;
-            border-top: 2px solid #f97316;
-            border-right: 1px solid #e2e8f0;
-            border-left: 1px solid #e2e8f0;
-            border-bottom: 1px solid transparent;
-            color: #f97316;
-            font-weight: 600;
-        }
-
-        .dark .req-tab-active {
-            background-color: #020617;
-            border-right-color: #1e293b;
-            border-left-color: #1e293b;
-            color: #f97316;
-        }
-
-        .CodeMirror-scroll {
-            overflow-y: auto !important;
-            overflow-x: auto !important;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        body { height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        dialog::backdrop { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); }
+        .CodeMirror { height: 100% !important; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; border-radius: 0.375rem; }
+        .tab-active { border-bottom-color: #f97316 !important; color: #ea580c !important; }
+        .side-tab-active { background-color: #e2e8f0; font-weight: 700; color: #0f172a; }
+        .dark .side-tab-active { background-color: #1e293b; color: #f8fafc; }
+        .req-tab-active { background-color: #ffffff; border-top: 2px solid #f97316; border-right: 1px solid #e2e8f0; border-left: 1px solid #e2e8f0; border-bottom: 1px solid transparent; color: #f97316; font-weight: 600; }
+        .dark .req-tab-active { background-color: #020617; border-right-color: #1e293b; border-left-color: #1e293b; color: #f97316; }
+        .CodeMirror-scroll { overflow-y: auto !important; overflow-x: auto !important; }
     </style>
 </head>
-
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-300 font-sans transition-colors duration-200">
-
-    <div id="splashScreen"
-        class="fixed inset-0 z-[100] bg-slate-950 flex flex-col justify-center items-center text-white transition-transform duration-700 ease-in-out">
+    <div id="splashScreen" class="fixed inset-0 z-[100] bg-slate-950 flex flex-col justify-center items-center text-white transition-transform duration-700 ease-in-out">
         <div class="animate-pulse flex flex-col items-center text-center px-4 w-full">
-            <svg class="w-16 h-16 md:w-20 md:h-20 text-brand mb-4 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]"
-                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
-                </path>
+            <svg class="w-16 h-16 md:w-20 md:h-20 text-brand mb-4 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
-            <h1 class="text-3xl md:text-4xl font-black mb-3 tracking-wider">Mini Postman <span
-                    class="text-base md:text-lg bg-gradient-to-r from-orange-500 to-red-600 px-2 py-1 rounded align-top shadow-lg">API</span>
-            </h1>
-            <p class="text-slate-400 mb-8 max-w-md text-xs md:text-sm leading-relaxed">A lightweight, lightning-fast,
-                and single-file API client designed for modern developers to test, build, and document APIs seamlessly
-                right in the browser.</p>
+            <h1 class="text-3xl md:text-4xl font-black mb-3 tracking-wider">Mini Postman <span class="text-base md:text-lg bg-gradient-to-r from-orange-500 to-red-600 px-2 py-1 rounded align-top shadow-lg">API</span></h1>
+            <p class="text-slate-400 mb-8 max-w-md text-xs md:text-sm leading-relaxed">A lightweight, lightning-fast, and single-file API client designed for modern developers to test, build, and document APIs seamlessly right in the browser.</p>
             <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl w-full max-w-sm shadow-2xl">
-                <h2 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Created & Developed By
-                </h2>
+                <h2 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Created & Developed By</h2>
                 <p class="font-black text-xl md:text-2xl text-slate-100">Arjunren Von</p>
                 <div class="flex items-center justify-center gap-2 mt-2 text-slate-400 text-xs md:text-sm">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
                     <span>github.com/Arjunren</span>
                 </div>
             </div>
@@ -145,514 +55,275 @@
             </div>
         </div>
     </div>
-
     <nav class="bg-slate-900 text-white px-3 py-2 flex justify-between items-center shrink-0 shadow-md z-20">
         <div class="flex items-center gap-2 md:gap-3">
-            <button id="sidebarToggle"
-                class="md:hidden text-slate-300 hover:text-white p-1 rounded hover:bg-slate-800 transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
+            <button id="sidebarToggle" class="md:hidden text-slate-300 hover:text-white p-1 rounded hover:bg-slate-800 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <svg class="w-5 h-5 md:w-6 md:h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
-                </path>
-            </svg>
-            <h1 class="text-base md:text-lg font-bold tracking-wide">Mini Postman <span
-                    class="text-[9px] md:text-[10px] text-white bg-gradient-to-r from-orange-500 to-red-600 px-1 md:px-1.5 py-0.5 rounded ml-1 font-black shadow align-top">API</span>
-            </h1>
+            <svg class="w-5 h-5 md:w-6 md:h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            <h1 class="text-base md:text-lg font-bold tracking-wide">Mini Postman <span class="text-[9px] md:text-[10px] text-white bg-gradient-to-r from-orange-500 to-red-600 px-1 md:px-1.5 py-0.5 rounded ml-1 font-black shadow align-top">API</span></h1>
         </div>
         <div class="flex items-center gap-2 md:gap-4 text-sm">
             <div class="hidden md:flex items-center gap-2 text-slate-400">
                 <span>Created by <span class="text-slate-200 font-semibold">Arjunren Von</span></span>
-                <a href="https://github.com/Arjunren" target="_blank"
-                    class="hover:text-white transition flex items-center gap-1 bg-slate-800 px-2 py-1 rounded-md">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                <a href="https://github.com/Arjunren" target="_blank" class="hover:text-white transition flex items-center gap-1 bg-slate-800 px-2 py-1 rounded-md">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
                     GitHub
                 </a>
             </div>
             <div class="hidden md:block h-4 w-px bg-slate-700"></div>
-            <button onclick="STORE.exportData()"
-                class="text-slate-300 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800"
-                title="Export Workspace">
-                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                </svg>
+            <button onclick="STORE.exportData()" class="text-slate-300 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800" title="Export Workspace">
+                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             </button>
-            <button onclick="document.getElementById('importFile').click()"
-                class="text-slate-300 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800"
-                title="Import Workspace">
-                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                </svg>
+            <button onclick="document.getElementById('importFile').click()" class="text-slate-300 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800" title="Import Workspace">
+                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
             </button>
             <input type="file" id="importFile" class="hidden" accept=".json">
-            <button id="themeToggle"
-                class="text-slate-400 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800">
-                <svg class="w-5 h-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
-                    </path>
-                </svg>
-                <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
-                    </path>
-                </svg>
+            <button id="themeToggle" class="text-slate-400 hover:text-white transition p-1 md:p-1.5 rounded hover:bg-slate-800">
+                <svg class="w-5 h-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
             </button>
         </div>
     </nav>
-
-    <div class="bg-slate-200 dark:bg-slate-900 flex overflow-x-auto pt-2 px-2 border-b border-slate-300 dark:border-slate-800 shrink-0 hide-scroll"
-        id="tabsContainer">
-    </div>
-
+    <div class="bg-slate-200 dark:bg-slate-900 flex overflow-x-auto pt-2 px-2 border-b border-slate-300 dark:border-slate-800 shrink-0 hide-scroll" id="tabsContainer"></div>
     <div class="flex flex-1 overflow-hidden relative">
-        <dialog id="saveModal"
-            class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl p-0 border border-slate-200 dark:border-slate-700 w-[90%] max-w-[400px] text-slate-800 dark:text-slate-200 m-auto">
-            <div
-                class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-950 rounded-t-xl">
+        <dialog id="saveModal" class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl p-0 border border-slate-200 dark:border-slate-700 w-[90%] max-w-[400px] text-slate-800 dark:text-slate-200 m-auto">
+            <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-950 rounded-t-xl">
                 <h3 class="font-bold text-lg">Save Request</h3>
-                <button onclick="document.getElementById('saveModal').close()"
-                    class="text-slate-400 hover:text-red-500 font-bold text-xl">&times;</button>
+                <button onclick="document.getElementById('saveModal').close()" class="text-slate-400 hover:text-red-500 font-bold text-xl">&times;</button>
             </div>
             <div class="p-5 space-y-4">
                 <div>
                     <label class="block text-sm font-semibold mb-1">Request Name</label>
-                    <input type="text" id="saveReqName"
-                        class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-white dark:bg-slate-950 outline-none focus:border-brand"
-                        placeholder="e.g. Get User Profile">
+                    <input type="text" id="saveReqName" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-white dark:bg-slate-950 outline-none focus:border-brand" placeholder="e.g. Get User Profile">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold mb-1">Folder (Collection)</label>
-                    <input type="text" id="saveReqFolder" list="folderList"
-                        class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-white dark:bg-slate-950 outline-none focus:border-brand"
-                        placeholder="e.g. Auth API">
+                    <input type="text" id="saveReqFolder" list="folderList" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-white dark:bg-slate-950 outline-none focus:border-brand" placeholder="e.g. Auth API">
                     <datalist id="folderList"></datalist>
                 </div>
             </div>
-            <div
-                class="px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2 bg-slate-50 dark:bg-slate-950 rounded-b-xl">
-                <button onclick="document.getElementById('saveModal').close()"
-                    class="px-4 py-2 rounded font-semibold text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 transition">Cancel</button>
-                <button id="confirmSaveBtn"
-                    class="px-4 py-2 bg-brand hover:bg-orange-600 text-white rounded font-semibold shadow-md transition">Save</button>
+            <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-2 bg-slate-50 dark:bg-slate-950 rounded-b-xl">
+                <button onclick="document.getElementById('saveModal').close()" class="px-4 py-2 rounded font-semibold text-slate-600 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 transition">Cancel</button>
+                <button id="confirmSaveBtn" class="px-4 py-2 bg-brand hover:bg-orange-600 text-white rounded font-semibold shadow-md transition">Save</button>
             </div>
         </dialog>
-
-        <dialog id="msgModal"
-            class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl p-0 border border-slate-200 dark:border-slate-700 w-[85%] max-w-[320px] text-center m-auto">
+        <dialog id="msgModal" class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl p-0 border border-slate-200 dark:border-slate-700 w-[85%] max-w-[320px] text-center m-auto">
             <div class="p-6">
-                <div
-                    class="w-12 h-12 rounded-full bg-orange-100 dark:bg-slate-800 text-brand flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
+                <div class="w-12 h-12 rounded-full bg-orange-100 dark:bg-slate-800 text-brand flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <h3 id="msgModalTitle" class="font-bold text-lg mb-2 text-slate-800 dark:text-slate-200">Notice</h3>
                 <p id="msgModalText" class="text-sm text-slate-600 dark:text-slate-400 mb-6"></p>
-                <button onclick="document.getElementById('msgModal').close()"
-                    class="w-full px-4 py-2 bg-brand hover:bg-orange-600 text-white rounded font-semibold transition">Got
-                    it</button>
+                <button onclick="document.getElementById('msgModal').close()" class="w-full px-4 py-2 bg-brand hover:bg-orange-600 text-white rounded font-semibold transition">Got it</button>
             </div>
         </dialog>
-
-        <dialog id="codeModal"
-            class="bg-white dark:bg-slate-900 w-[95%] max-w-[800px] rounded-xl shadow-2xl p-0 border border-slate-200 dark:border-slate-700 m-auto text-slate-800 dark:text-slate-200 flex flex-col">
-            <div
-                class="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 rounded-t-xl">
+        <dialog id="codeModal" class="bg-white dark:bg-slate-900 w-[95%] max-w-[800px] rounded-xl shadow-2xl p-0 border border-slate-200 dark:border-slate-700 m-auto text-slate-800 dark:text-slate-200 flex flex-col">
+            <div class="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 rounded-t-xl">
                 <h2 class="font-bold text-base md:text-lg">Generate Code Snippets</h2>
-                <button onclick="document.getElementById('codeModal').close()"
-                    class="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
+                <button onclick="document.getElementById('codeModal').close()" class="text-slate-400 hover:text-red-500 text-xl font-bold">&times;</button>
             </div>
-            <div
-                class="flex overflow-x-auto hide-scroll border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
-                <button
-                    class="code-tab-btn px-4 md:px-6 py-2 text-sm font-bold text-brand border-b-2 border-brand whitespace-nowrap"
-                    data-lang="curl">cURL</button>
-                <button
-                    class="code-tab-btn px-4 md:px-6 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white border-b-2 border-transparent transition whitespace-nowrap"
-                    data-lang="fetch">Fetch (JS)</button>
-                <button
-                    class="code-tab-btn px-4 md:px-6 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white border-b-2 border-transparent transition whitespace-nowrap"
-                    data-lang="python">Python</button>
+            <div class="flex overflow-x-auto hide-scroll border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900">
+                <button class="code-tab-btn px-4 md:px-6 py-2 text-sm font-bold text-brand border-b-2 border-brand whitespace-nowrap" data-lang="curl">cURL</button>
+                <button class="code-tab-btn px-4 md:px-6 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white border-b-2 border-transparent transition whitespace-nowrap" data-lang="fetch">Fetch (JS)</button>
+                <button class="code-tab-btn px-4 md:px-6 py-2 text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-white border-b-2 border-transparent transition whitespace-nowrap" data-lang="python">Python</button>
             </div>
             <div class="p-0 bg-slate-950 relative h-64 md:h-80 rounded-b-xl overflow-hidden">
-                <button id="copyCodeBtn"
-                    class="absolute top-4 right-4 z-10 text-xs bg-slate-800 border border-slate-600 hover:bg-slate-700 text-white py-1.5 px-3 rounded shadow transition flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
-                        </path>
-                    </svg> Copy
+                <button id="copyCodeBtn" class="absolute top-4 right-4 z-10 text-xs bg-slate-800 border border-slate-600 hover:bg-slate-700 text-white py-1.5 px-3 rounded shadow transition flex items-center gap-1">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy
                 </button>
                 <textarea id="codeOutput" class="hidden"></textarea>
             </div>
         </dialog>
-
         <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden md:hidden"></div>
-        <aside id="sidebar"
-            class="w-72 bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 z-40 transition-transform duration-300 ease-in-out fixed md:relative h-full -translate-x-full md:translate-x-0">
+        <aside id="sidebar" class="w-72 bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 z-40 transition-transform duration-300 ease-in-out fixed md:relative h-full -translate-x-full md:translate-x-0">
             <div class="flex border-b border-slate-200 dark:border-slate-800 text-xs font-bold shrink-0">
-                <button
-                    class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn side-tab-active"
-                    data-target="panel-history">History</button>
-                <button
-                    class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn"
-                    data-target="panel-saved">Saved</button>
-                <button
-                    class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn"
-                    data-target="panel-env">Env {}</button>
+                <button class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn side-tab-active" data-target="panel-history">History</button>
+                <button class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn" data-target="panel-saved">Saved</button>
+                <button class="flex-1 py-3 text-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition side-tab-btn" data-target="panel-env">Env {}</button>
             </div>
-
             <div id="panel-history" class="side-panel flex-1 flex flex-col overflow-hidden">
                 <div class="p-2 flex justify-end border-b border-slate-200 dark:border-slate-800 shrink-0">
-                    <button id="clearHistoryBtn"
-                        class="text-[10px] text-slate-500 hover:text-red-600 transition uppercase font-bold tracking-wider">Clear
-                        All</button>
+                    <button id="clearHistoryBtn" class="text-[10px] text-slate-500 hover:text-red-600 transition uppercase font-bold tracking-wider">Clear All</button>
                 </div>
                 <div id="historyList" class="flex-1 overflow-y-auto p-2 space-y-1"></div>
             </div>
-
             <div id="panel-saved" class="side-panel flex-1 flex flex-col overflow-hidden hidden">
-                <div
-                    class="p-2 border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 shrink-0">
-                    <input type="text" id="searchSaved" placeholder="Filter collections..."
-                        class="w-full px-2 py-1.5 text-xs bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded outline-none focus:border-brand">
+                <div class="p-2 border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 shrink-0">
+                    <input type="text" id="searchSaved" placeholder="Filter collections..." class="w-full px-2 py-1.5 text-xs bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded outline-none focus:border-brand">
                 </div>
                 <div id="savedList" class="flex-1 overflow-y-auto p-2 space-y-2"></div>
             </div>
-
             <div id="panel-env" class="side-panel flex-1 flex flex-col overflow-hidden hidden">
-                <div class="p-2 border-b border-slate-200 dark:border-slate-800 shrink-0">
-                    <button id="addEnvBtn"
-                        class="w-full text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 py-1.5 rounded font-semibold transition text-slate-700 dark:text-slate-300">+
-                        Add Variable</button>
+                <div class="p-2 border-b border-slate-200 dark:border-slate-800 shrink-0 flex gap-2">
+                    <select id="envSelector" class="flex-1 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 py-1.5 px-2 rounded font-semibold text-slate-700 dark:text-slate-300 outline-none cursor-pointer focus:border-brand">
+                        <option value="dev">Dev Env</option>
+                        <option value="live">Live Env</option>
+                    </select>
+                    <button id="addEnvBtn" class="flex-1 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 py-1.5 rounded font-semibold transition text-slate-700 dark:text-slate-300">+ Add Var</button>
                 </div>
                 <div id="envList" class="flex-1 overflow-y-auto p-2 space-y-2"></div>
             </div>
         </aside>
-
         <main class="flex-1 flex flex-col overflow-hidden bg-white dark:bg-slate-950 relative transition-colors w-full">
-
-            <div id="toast"
-                class="absolute top-4 right-4 md:right-4 left-4 md:left-auto bg-slate-800 text-white text-sm px-4 py-2 rounded shadow-xl transform transition-transform duration-300 translate-y-[-200%] z-50 flex items-center gap-2 border border-slate-700">
-                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
+            <div id="toast" class="absolute top-4 right-4 md:right-4 left-4 md:left-auto bg-slate-800 text-white text-sm px-4 py-2 rounded shadow-xl transform transition-transform duration-300 translate-y-[-200%] z-50 flex items-center gap-2 border border-slate-700">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                 <span id="toastMsg">Success!</span>
             </div>
-
-            <div
-                class="p-2 md:p-3 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 shrink-0 flex flex-col md:flex-row gap-2">
-                <div
-                    class="flex flex-1 shadow-sm rounded-md ring-1 ring-slate-300 dark:ring-slate-700 focus-within:ring-2 focus-within:ring-brand w-full">
-                    <select id="httpMethod"
-                        class="px-2 md:px-3 py-2 rounded-l-md bg-slate-100 dark:bg-slate-800 border-r border-slate-300 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-200 outline-none w-20 md:w-28 text-xs md:text-sm focus:bg-white dark:focus:bg-slate-700 cursor-pointer">
-                        <option value="GET">GET</option>
-                        <option value="POST" selected>POST</option>
+            <div class="p-2 md:p-3 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 shrink-0 flex flex-col md:flex-row gap-2">
+                <div class="flex flex-1 shadow-sm rounded-md ring-1 ring-slate-300 dark:ring-slate-700 focus-within:ring-2 focus-within:ring-brand w-full">
+                    <select id="httpMethod" class="px-2 md:px-3 py-2 rounded-l-md bg-slate-100 dark:bg-slate-800 border-r border-slate-300 dark:border-slate-700 font-bold text-slate-700 dark:text-slate-200 outline-none w-20 md:w-28 text-xs md:text-sm focus:bg-white dark:focus:bg-slate-700 cursor-pointer">
+                        <option value="GET" selected>GET</option>
+                        <option value="POST">POST</option>
                         <option value="PUT">PUT</option>
                         <option value="PATCH">PATCH</option>
                         <option value="DELETE">DELETE</option>
                         <option value="OPTIONS">OPTIONS</option>
                     </select>
-                    <input type="text" id="endpointUrl"
-                        class="flex-1 min-w-0 px-2 md:px-4 py-2 outline-none font-mono text-xs md:text-sm bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder-slate-400"
-                        placeholder="https://api.example.com/v1">
-                    <button id="sendBtn"
-                        class="bg-brand hover:bg-orange-600 text-white font-bold py-2 px-4 md:px-8 rounded-r-md transition flex items-center gap-2 shadow text-sm">
+                    <input type="text" id="endpointUrl" class="flex-1 min-w-0 px-2 md:px-4 py-2 outline-none font-mono text-xs md:text-sm bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder-slate-400" placeholder="https://api.example.com/v1">
+                    <button id="sendBtn" class="bg-brand hover:bg-orange-600 text-white font-bold py-2 px-4 md:px-8 rounded-r-md transition flex items-center gap-2 shadow text-sm">
                         <span>Send</span>
                     </button>
                 </div>
                 <div class="flex gap-2 w-full md:w-auto">
-                    <button id="saveReqBtn"
-                        class="flex-1 md:flex-none justify-center bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
-                            </path>
-                        </svg> Save
+                    <button id="saveReqBtn" class="flex-1 md:flex-none justify-center bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg> Save
                     </button>
-                    <button id="openCodeBtn"
-                        class="flex-1 md:flex-none justify-center bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg> Code
+                    <button id="openCodeBtn" class="flex-1 md:flex-none justify-center bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-3 md:px-4 rounded-md transition text-xs md:text-sm flex items-center gap-1 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg> Code
                     </button>
                 </div>
             </div>
-
-            <div
-                class="flex flex-col h-[50%] min-h-[250px] border-b-[6px] border-slate-200 dark:border-slate-900 resize-y max-h-[70%] z-10 shadow-sm relative">
-
-                <div
-                    class="flex px-2 md:px-4 pt-2 gap-1 bg-slate-100 dark:bg-slate-900 shrink-0 border-b border-slate-200 dark:border-slate-800 overflow-x-auto hide-scroll whitespace-nowrap">
-                    <button
-                        class="req-tab-btn req-tab-active px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition"
-                        data-target="req-params">Params</button>
-                    <button
-                        class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition"
-                        data-target="req-auth">Auth</button>
-                    <button
-                        class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition"
-                        data-target="req-headers">Headers</button>
-                    <button
-                        class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition"
-                        data-target="req-body">Body</button>
-                    <button
-                        class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition flex items-center gap-1"
-                        data-target="req-scripts">Pre-request <span
-                            class="w-1.5 h-1.5 rounded-full bg-blue-500"></span></button>
-                    <button
-                        class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition flex items-center gap-1"
-                        data-target="req-tests">Tests <span
-                            class="w-1.5 h-1.5 rounded-full bg-green-500"></span></button>
+            <div class="flex flex-col h-[50%] min-h-[250px] border-b-[6px] border-slate-200 dark:border-slate-900 resize-y max-h-[70%] z-10 shadow-sm relative">
+                <div class="flex px-2 md:px-4 pt-2 gap-1 bg-slate-100 dark:bg-slate-900 shrink-0 border-b border-slate-200 dark:border-slate-800 overflow-x-auto hide-scroll whitespace-nowrap">
+                    <button class="req-tab-btn req-tab-active px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition" data-target="req-params">Params</button>
+                    <button class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition" data-target="req-auth">Auth</button>
+                    <button class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition" data-target="req-headers">Headers</button>
+                    <button class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition" data-target="req-body">Body</button>
+                    <button class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition flex items-center gap-1" data-target="req-scripts">Pre-request <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span></button>
+                    <button class="req-tab-btn text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 border border-transparent px-3 md:px-4 py-1.5 text-xs md:text-sm rounded-t-md transition flex items-center gap-1" data-target="req-tests">Tests <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span></button>
                 </div>
-
                 <div class="flex-1 overflow-hidden bg-white dark:bg-slate-950 relative">
                     <div id="req-params" class="req-panel flex flex-col h-full p-2 md:p-4 overflow-y-auto">
-                        <button id="addParamBtn"
-                            class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 py-1.5 px-3 rounded font-semibold mb-3 transition shadow-sm">+
-                            Add Query Param</button>
+                        <button id="addParamBtn" class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 py-1.5 px-3 rounded font-semibold mb-3 transition shadow-sm">+ Add Query Param</button>
                         <div id="paramRows" class="space-y-2"></div>
                     </div>
                     <div id="req-auth" class="req-panel flex-col h-full p-3 md:p-4 hidden overflow-y-auto">
                         <div class="flex flex-col md:flex-row gap-4">
                             <div class="w-full md:w-48 shrink-0">
-                                <label
-                                    class="block text-[10px] md:text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Type</label>
-                                <select id="authType"
-                                    class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded outline-none focus:border-brand text-sm bg-slate-50 dark:bg-slate-900 cursor-pointer">
+                                <label class="block text-[10px] md:text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Type</label>
+                                <select id="authType" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 rounded outline-none focus:border-brand text-sm bg-slate-50 dark:bg-slate-900 cursor-pointer">
                                     <option value="none">No Auth</option>
                                     <option value="bearer">Bearer Token</option>
                                     <option value="basic">Basic Auth</option>
                                     <option value="oauth2">OAuth 2.0</option>
                                 </select>
                             </div>
-                            <div
-                                class="flex-1 pt-2 md:pt-0 border-t md:border-t-0 md:pl-4 md:border-l border-slate-200 dark:border-slate-800">
-                                <div id="authNoneDesc" class="auth-panel text-xs md:text-sm text-slate-500 mt-2">This
-                                    request does not use any authorization.</div>
-
+                            <div class="flex-1 pt-2 md:pt-0 border-t md:border-t-0 md:pl-4 md:border-l border-slate-200 dark:border-slate-800">
+                                <div id="authNoneDesc" class="auth-panel text-xs md:text-sm text-slate-500 mt-2">This request does not use any authorization.</div>
                                 <div id="bearerTokenArea" class="hidden auth-panel space-y-3">
-                                    <div><label
-                                            class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Token</label>
-                                        <input type="text" id="bearerToken" placeholder="eyJhbGci..."
-                                            class="w-full max-w-xl px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand">
-                                    </div>
+                                    <div><label class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Token</label><input type="text" id="bearerToken" placeholder="eyJhbGci..." class="w-full max-w-xl px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand"></div>
                                 </div>
-
                                 <div id="basicAuthArea" class="hidden auth-panel space-y-3 max-w-sm">
-                                    <div><label
-                                            class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Username</label>
-                                        <input type="text" id="basicUser"
-                                            class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand">
-                                    </div>
-                                    <div><label
-                                            class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Password</label>
-                                        <input type="password" id="basicPass"
-                                            class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand">
-                                    </div>
+                                    <div><label class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Username</label><input type="text" id="basicUser" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand"></div>
+                                    <div><label class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Password</label><input type="password" id="basicPass" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand"></div>
                                 </div>
-
                                 <div id="oauth2Area" class="hidden auth-panel space-y-3 max-w-xl">
-                                    <div
-                                        class="p-2 md:p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded text-[10px] md:text-xs text-blue-700 dark:text-blue-300 mb-2">
-                                        Generates a token using <b>Client Credentials</b> flow.
-                                    </div>
-                                    <div><label
-                                            class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Access
-                                            Token URL</label>
-                                        <input type="text" id="oauthUrl"
-                                            class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand">
-                                    </div>
+                                    <div class="p-2 md:p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded text-[10px] md:text-xs text-blue-700 dark:text-blue-300 mb-2">Generates a token using <b>Client Credentials</b> flow.</div>
+                                    <div><label class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Access Token URL</label><input type="text" id="oauthUrl" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand"></div>
                                     <div class="flex flex-col md:flex-row gap-3">
-                                        <div class="flex-1"><label
-                                                class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Client
-                                                ID</label>
-                                            <input type="text" id="oauthClientId"
-                                                class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand">
-                                        </div>
-                                        <div class="flex-1"><label
-                                                class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Client
-                                                Secret</label>
-                                            <input type="password" id="oauthClientSecret"
-                                                class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand">
-                                        </div>
+                                        <div class="flex-1"><label class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Client ID</label><input type="text" id="oauthClientId" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand"></div>
+                                        <div class="flex-1"><label class="block text-[10px] md:text-xs font-bold text-slate-500 mb-1">Client Secret</label><input type="password" id="oauthClientSecret" class="w-full px-3 py-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 rounded outline-none font-mono text-sm focus:border-brand"></div>
                                     </div>
-                                    <button id="getOauthTokenBtn"
-                                        class="mt-2 w-full md:w-auto px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold rounded transition shadow-sm">Generate
-                                        & Use Token</button>
+                                    <button id="getOauthTokenBtn" class="mt-2 w-full md:w-auto px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm font-semibold rounded transition shadow-sm">Generate & Use Token</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="req-headers" class="req-panel flex-col h-full p-2 md:p-4 hidden overflow-y-auto">
-                        <button id="addHeaderBtn"
-                            class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition shadow-sm">+
-                            Add Header</button>
+                        <button id="addHeaderBtn" class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition shadow-sm">+ Add Header</button>
                         <div id="headerRows" class="space-y-2"></div>
                     </div>
                     <div id="req-body" class="req-panel flex-col h-full hidden">
-                        <div
-                            class="px-2 md:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex gap-4 bg-slate-50 dark:bg-slate-900 shrink-0 overflow-x-auto hide-scroll whitespace-nowrap">
-                            <label class="inline-flex items-center cursor-pointer group"><input type="radio"
-                                    name="bodyType" value="none" class="text-brand focus:ring-brand accent-brand"><span
-                                    class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand">None</span></label>
-                            <label class="inline-flex items-center cursor-pointer group"><input type="radio"
-                                    name="bodyType" value="json" class="text-brand focus:ring-brand accent-brand"
-                                    checked><span
-                                    class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand">JSON</span></label>
-                            <label class="inline-flex items-center cursor-pointer group"><input type="radio"
-                                    name="bodyType" value="formdata"
-                                    class="text-brand focus:ring-brand accent-brand"><span
-                                    class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand">Form
-                                    Data</span></label>
-                            <label class="inline-flex items-center cursor-pointer group"><input type="radio"
-                                    name="bodyType" value="graphql"
-                                    class="text-brand focus:ring-brand accent-brand"><span
-                                    class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand flex items-center gap-1"><svg
-                                        class="w-3 h-3 md:w-4 md:h-4 text-pink-500" viewBox="0 0 400 400">
-                                        <path fill="currentColor"
-                                            d="M200 40.5L34.5 136v127L200 358.5l165.5-95.5v-127L200 40.5zM200 75l135.5 78v93L200 324l-135.5-78v-93L200 75z" />
-                                        <circle fill="currentColor" cx="200" cy="40.5" r="28.5" />
-                                        <circle fill="currentColor" cx="34.5" cy="136" r="28.5" />
-                                        <circle fill="currentColor" cx="34.5" cy="263" r="28.5" />
-                                        <circle fill="currentColor" cx="200" cy="358.5" r="28.5" />
-                                        <circle fill="currentColor" cx="365.5" cy="263" r="28.5" />
-                                        <circle fill="currentColor" cx="365.5" cy="136" r="28.5" />
-                                    </svg> GraphQL</span></label>
+                        <div class="px-2 md:px-4 py-2 border-b border-slate-200 dark:border-slate-800 flex gap-4 bg-slate-50 dark:bg-slate-900 shrink-0 overflow-x-auto hide-scroll whitespace-nowrap">
+                            <label class="inline-flex items-center cursor-pointer group"><input type="radio" name="bodyType" value="none" class="text-brand focus:ring-brand accent-brand"><span class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand">None</span></label>
+                            <label class="inline-flex items-center cursor-pointer group"><input type="radio" name="bodyType" value="json" class="text-brand focus:ring-brand accent-brand" checked><span class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand">JSON</span></label>
+                            <label class="inline-flex items-center cursor-pointer group"><input type="radio" name="bodyType" value="formdata" class="text-brand focus:ring-brand accent-brand"><span class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand">Form Data</span></label>
+                            <label class="inline-flex items-center cursor-pointer group"><input type="radio" name="bodyType" value="graphql" class="text-brand focus:ring-brand accent-brand"><span class="ml-1.5 text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-brand flex items-center gap-1"><svg class="w-3 h-3 md:w-4 md:h-4 text-pink-500" viewBox="0 0 400 400"><path fill="currentColor" d="M200 40.5L34.5 136v127L200 358.5l165.5-95.5v-127L200 40.5zM200 75l135.5 78v93L200 324l-135.5-78v-93L200 75z"/><circle fill="currentColor" cx="200" cy="40.5" r="28.5"/><circle fill="currentColor" cx="34.5" cy="136" r="28.5"/><circle fill="currentColor" cx="34.5" cy="263" r="28.5"/><circle fill="currentColor" cx="200" cy="358.5" r="28.5"/><circle fill="currentColor" cx="365.5" cy="263" r="28.5"/><circle fill="currentColor" cx="365.5" cy="136" r="28.5"/></svg> GraphQL</span></label>
                         </div>
                         <div class="flex-1 relative bg-white dark:bg-slate-950">
-                            <div id="jsonBodyContainer" class="absolute inset-0 h-full w-full">
-                                <textarea id="jsonPayload">{\n}</textarea>
-                            </div>
-                            <div id="formDataContainer"
-                                class="hidden absolute inset-0 p-2 md:p-4 overflow-y-auto bg-white dark:bg-slate-950">
-                                <button id="addFormDataBtn"
-                                    class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition shadow-sm">+
-                                    Add Field</button>
+                            <div id="jsonBodyContainer" class="absolute inset-0 h-full w-full"><textarea id="jsonPayload">{\n}</textarea></div>
+                            <div id="formDataContainer" class="hidden absolute inset-0 p-2 md:p-4 overflow-y-auto bg-white dark:bg-slate-950">
+                                <button id="addFormDataBtn" class="self-start text-xs bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 hover:bg-slate-200 py-1.5 px-3 rounded font-semibold mb-3 transition shadow-sm">+ Add Field</button>
                                 <div id="formDataRows" class="space-y-2"></div>
                             </div>
                             <div id="graphqlContainer" class="hidden absolute inset-0 flex flex-col h-full">
                                 <div class="flex-1 border-b border-slate-200 dark:border-slate-800 relative">
-                                    <div
-                                        class="absolute top-0 right-0 bg-slate-200 dark:bg-slate-800 text-[9px] md:text-[10px] px-2 py-0.5 rounded-bl-md z-10 font-bold text-slate-500 uppercase">
-                                        Query</div>
+                                    <div class="absolute top-0 right-0 bg-slate-200 dark:bg-slate-800 text-[9px] md:text-[10px] px-2 py-0.5 rounded-bl-md z-10 font-bold text-slate-500 uppercase">Query</div>
                                     <textarea id="gqlQuery">query {\n}</textarea>
                                 </div>
                                 <div class="h-1/3 relative">
-                                    <div
-                                        class="absolute top-0 right-0 bg-slate-200 dark:bg-slate-800 text-[9px] md:text-[10px] px-2 py-0.5 rounded-bl-md z-10 font-bold text-slate-500 uppercase">
-                                        Variables</div>
+                                    <div class="absolute top-0 right-0 bg-slate-200 dark:bg-slate-800 text-[9px] md:text-[10px] px-2 py-0.5 rounded-bl-md z-10 font-bold text-slate-500 uppercase">Variables</div>
                                     <textarea id="gqlVars">{\n}</textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div id="req-scripts" class="req-panel flex-col h-full hidden">
-                        <div
-                            class="p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-[10px] md:text-xs text-slate-500 shrink-0">
-                            Set Env Var: <code
-                                class="bg-slate-200 dark:bg-slate-800 px-1 rounded text-pink-500">pm.environment.set("key", "val")</code>
-                        </div>
+                        <div class="p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-[10px] md:text-xs text-slate-500 shrink-0">Set Env Var: <code class="bg-slate-200 dark:bg-slate-800 px-1 rounded text-pink-500">pm.environment.set("key", "val")</code></div>
                         <div class="flex-1 relative"><textarea id="preRequestScript"></textarea></div>
                     </div>
                     <div id="req-tests" class="req-panel flex-col h-full hidden">
-                        <div
-                            class="p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-[10px] md:text-xs text-slate-500 shrink-0 flex justify-between items-center">
-                            <span>Use <code
-                                    class="bg-slate-200 dark:bg-slate-800 px-1 rounded text-pink-500">pm.test()</code>
-                                &amp; <code
-                                    class="bg-slate-200 dark:bg-slate-800 px-1 rounded text-pink-500">pm.expect()</code></span>
-                            <button onclick="UI.insertTestSnippet()"
-                                class="text-[9px] md:text-[10px] bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-2 py-0.5 rounded">Insert
-                                Snippet</button>
+                        <div class="p-2 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-[10px] md:text-xs text-slate-500 shrink-0 flex justify-between items-center">
+                            <span>Use <code class="bg-slate-200 dark:bg-slate-800 px-1 rounded text-pink-500">pm.test()</code> &amp; <code class="bg-slate-200 dark:bg-slate-800 px-1 rounded text-pink-500">pm.expect()</code></span>
+                            <button onclick="UI.insertTestSnippet()" class="text-[9px] md:text-[10px] bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-2 py-0.5 rounded">Insert Snippet</button>
                         </div>
-                        <div class="flex-1 relative"><textarea
-                                id="testScript">pm.test("Status code is 200", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});</textarea>
-                        </div>
+                        <div class="flex-1 relative"><textarea id="testScript">pm.test("Status code is 200", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});</textarea></div>
                     </div>
                 </div>
             </div>
-
-            <div
-                class="flex-1 flex flex-col overflow-hidden text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900">
-                <div
-                    class="flex flex-col md:flex-row justify-between items-start md:items-center px-2 md:px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 shrink-0 shadow-sm z-10 gap-2 md:gap-0">
+            <div class="flex-1 flex flex-col overflow-hidden text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-900">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center px-2 md:px-4 py-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-300 dark:border-slate-800 shrink-0 shadow-sm z-10 gap-2 md:gap-0">
                     <div class="flex gap-4 overflow-x-auto hide-scroll whitespace-nowrap w-full md:w-auto">
-                        <button class="res-tab-btn text-brand font-bold text-xs md:text-sm border-b-2 border-brand py-1"
-                            data-target="res-body">Response Body</button>
-                        <button
-                            class="res-tab-btn text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-xs md:text-sm border-b-2 border-transparent transition py-1"
-                            data-target="res-headers">Headers</button>
-                        <button
-                            class="res-tab-btn text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-xs md:text-sm border-b-2 border-transparent transition py-1 flex items-center gap-1"
-                            data-target="res-test-results">
-                            Test Results <span id="testBadge"
-                                class="hidden px-1.5 rounded-full bg-green-500 text-white text-[9px] md:text-[10px] font-bold shadow-sm">0/0</span>
-                        </button>
-                        <button
-                            class="res-tab-btn text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-xs md:text-sm border-b-2 border-transparent transition py-1"
-                            data-target="res-preview">Preview</button>
+                        <button class="res-tab-btn text-brand font-bold text-xs md:text-sm border-b-2 border-brand py-1" data-target="res-body">Response Body</button>
+                        <button class="res-tab-btn text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-xs md:text-sm border-b-2 border-transparent transition py-1" data-target="res-headers">Headers</button>
+                        <button class="res-tab-btn text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-xs md:text-sm border-b-2 border-transparent transition py-1 flex items-center gap-1" data-target="res-test-results">Test Results <span id="testBadge" class="hidden px-1.5 rounded-full bg-green-500 text-white text-[9px] md:text-[10px] font-bold shadow-sm">0/0</span></button>
+                        <button class="res-tab-btn text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 font-semibold text-xs md:text-sm border-b-2 border-transparent transition py-1" data-target="res-preview">Preview</button>
                     </div>
-                    <div
-                        class="flex gap-3 md:gap-4 text-[10px] md:text-xs font-mono w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-200 dark:border-slate-800 pt-2 md:pt-0">
-                        <div class="flex items-center gap-1"><span class="text-slate-400">Status:</span><span
-                                id="resStatus" class="font-bold text-slate-500">-</span></div>
-                        <div class="flex items-center gap-1"><span class="text-slate-400">Time:</span><span id="resTime"
-                                class="font-bold text-slate-500">-</span></div>
-                        <div class="flex items-center gap-1"><span class="text-slate-400">Size:</span><span id="resSize"
-                                class="font-bold text-slate-500">-</span></div>
+                    <div class="flex gap-3 md:gap-4 text-[10px] md:text-xs font-mono w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-200 dark:border-slate-800 pt-2 md:pt-0">
+                        <div class="flex items-center gap-1"><span class="text-slate-400">Status:</span><span id="resStatus" class="font-bold text-slate-500">-</span></div>
+                        <div class="flex items-center gap-1"><span class="text-slate-400">Time:</span><span id="resTime" class="font-bold text-slate-500">-</span></div>
+                        <div class="flex items-center gap-1"><span class="text-slate-400">Size:</span><span id="resSize" class="font-bold text-slate-500">-</span></div>
                     </div>
                 </div>
-
                 <div class="flex-1 relative overflow-hidden bg-white dark:bg-[#0f111a]">
                     <div id="res-body" class="res-panel absolute inset-0 flex flex-col h-full">
-                        <div
-                            class="p-1.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shrink-0 flex items-center px-3">
-                            <svg class="w-3 h-3 md:w-4 md:h-4 text-slate-400 mr-2" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            <input type="text" id="resFilter" placeholder="Filter response text..."
-                                class="w-full bg-transparent text-[10px] md:text-xs outline-none text-slate-700 dark:text-slate-300 placeholder-slate-400">
+                        <div class="p-1.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 shrink-0 flex items-center justify-between px-3">
+                            <div class="flex items-center w-full">
+                                <svg class="w-3 h-3 md:w-4 md:h-4 text-slate-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                <input type="text" id="resFilter" placeholder="Filter response text..." class="w-full bg-transparent text-[10px] md:text-xs outline-none text-slate-700 dark:text-slate-300 placeholder-slate-400">
+                            </div>
+                            <button id="copyResBtn" class="ml-2 text-[10px] md:text-xs bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 px-2 py-1 rounded text-slate-600 dark:text-slate-300 font-bold transition">Copy</button>
                         </div>
                         <div class="flex-1 relative">
                             <textarea id="responseEditor">Hit 'Send' to get a response...</textarea>
                         </div>
                     </div>
-
-                    <pre id="res-headers"
-                        class="res-panel absolute inset-0 p-2 md:p-4 font-mono text-xs md:text-sm overflow-auto text-blue-600 dark:text-blue-300 whitespace-pre-wrap break-all hidden bg-slate-50 dark:bg-slate-950"></pre>
-                    <iframe id="res-preview" class="res-panel absolute inset-0 w-full h-full bg-white hidden"
-                        sandbox="allow-scripts"></iframe>
-
-                    <div id="res-test-results"
-                        class="res-panel absolute inset-0 p-2 md:p-4 font-mono text-xs md:text-sm overflow-auto hidden bg-slate-50 dark:bg-slate-950">
+                    <pre id="res-headers" class="res-panel absolute inset-0 p-2 md:p-4 font-mono text-xs md:text-sm overflow-auto text-blue-600 dark:text-blue-300 whitespace-pre-wrap break-all hidden bg-slate-50 dark:bg-slate-950"></pre>
+                    <iframe id="res-preview" class="res-panel absolute inset-0 w-full h-full bg-white hidden" sandbox="allow-scripts"></iframe>
+                    <div id="res-test-results" class="res-panel absolute inset-0 p-2 md:p-4 font-mono text-xs md:text-sm overflow-auto hidden bg-slate-50 dark:bg-slate-950">
                         <div id="testOutput" class="space-y-2 text-slate-500">No tests executed yet.</div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-
     <script>
         setTimeout(() => {
             const splash = document.getElementById('splashScreen');
             splash.classList.add('-translate-y-full');
             setTimeout(() => splash.remove(), 700);
-        }, 2000);
+        }, 3000);
 
         const htmlEl = document.documentElement;
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) htmlEl.classList.add('dark');
@@ -682,7 +353,6 @@
             init() {
                 const theme = htmlEl.classList.contains('dark') ? 'material-ocean' : 'default';
                 const baseConfig = { lineNumbers: true, theme: theme, matchBrackets: true, tabSize: 2 };
-
                 this.instances.json = CodeMirror.fromTextArea(document.getElementById('jsonPayload'), { ...baseConfig, mode: "application/json" });
                 this.instances.gqlQuery = CodeMirror.fromTextArea(document.getElementById('gqlQuery'), { ...baseConfig, mode: "javascript" });
                 this.instances.gqlVars = CodeMirror.fromTextArea(document.getElementById('gqlVars'), { ...baseConfig, mode: "application/json" });
@@ -704,9 +374,16 @@
         const STORE = {
             history: JSON.parse(localStorage.getItem('mp_history_v5')) || [],
             saved: JSON.parse(localStorage.getItem('mp_saved_v5')) || [],
-            env: JSON.parse(localStorage.getItem('mp_env_v5')) || [{ key: 'base_url', val: 'https://jsonplaceholder.typicode.com' }],
             tabs: JSON.parse(localStorage.getItem('mp_tabs_v5')) || [{ id: Date.now(), name: 'New Request', url: '', method: 'GET' }],
             activeTabId: null,
+
+            environments: JSON.parse(localStorage.getItem('mp_environments_v1')) || {
+                active: 'dev',
+                dev: [{ key: 'base_url', val: 'http://localhost:3000' }],
+                live: [{ key: 'base_url', val: 'https://api.example.com' }]
+            },
+
+            get env() { return this.environments[this.environments.active]; },
 
             saveHistory(item) {
                 if (this.history.length > 0 && this.history[0].url === item.url && this.history[0].method === item.method) return;
@@ -729,12 +406,16 @@
             },
             saveEnv() {
                 const rows = document.querySelectorAll('#envList .env-row');
-                this.env = [];
+                const newEnv = [];
                 rows.forEach(row => {
                     const k = row.querySelector('.env-key').value.trim();
-                    if (k) this.env.push({ key: k, val: row.querySelector('.env-val').value });
+                    if (k) newEnv.push({ key: k, val: row.querySelector('.env-val').value });
                 });
-                localStorage.setItem('mp_env_v5', JSON.stringify(this.env));
+                this.environments[this.environments.active] = newEnv;
+                this.persistEnvironments();
+            },
+            persistEnvironments() {
+                localStorage.setItem('mp_environments_v1', JSON.stringify(this.environments));
             },
             interpolate(text) {
                 if (!text) return "";
@@ -743,7 +424,7 @@
                 return result;
             },
             exportData() {
-                const data = { history: this.history, saved: this.saved, env: this.env };
+                const data = { history: this.history, saved: this.saved, environments: this.environments };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a'); a.href = url; a.download = 'postman_workspace.json'; a.click();
@@ -755,10 +436,15 @@
                     const parsed = JSON.parse(jsonString);
                     if (parsed.history) this.history = parsed.history;
                     if (parsed.saved) this.saved = parsed.saved;
-                    if (parsed.env) this.env = parsed.env;
+                    if (parsed.environments) {
+                        this.environments = parsed.environments;
+                    } else if (parsed.env) {
+                        this.environments = { active: 'dev', dev: parsed.env, live: [] };
+                    }
                     localStorage.setItem('mp_history_v5', JSON.stringify(this.history));
                     localStorage.setItem('mp_saved_v5', JSON.stringify(this.saved));
-                    localStorage.setItem('mp_env_v5', JSON.stringify(this.env));
+                    this.persistEnvironments();
+                    document.getElementById('envSelector').value = this.environments.active;
                     UI.renderHistory(); UI.renderSaved(); UI.renderEnv();
                     showAlert("Import Success", "Workspace data has been updated.");
                 } catch (e) { showAlert("Error", "Invalid JSON file."); }
@@ -931,6 +617,15 @@
         document.addEventListener("DOMContentLoaded", () => {
             Editors.init(); UI.initTabs(); UI.renderHistory(); UI.renderSaved(); UI.renderEnv();
 
+            const envSelector = document.getElementById('envSelector');
+            envSelector.value = STORE.environments.active;
+            envSelector.addEventListener('change', (e) => {
+                STORE.environments.active = e.target.value;
+                STORE.persistEnvironments();
+                UI.renderEnv();
+                UI.showToast(`Switched to ${e.target.options[e.target.selectedIndex].text}`);
+            });
+
             document.getElementById('endpointUrl').addEventListener('input', (e) => UI.updateActiveTab(e.target.value, document.getElementById('httpMethod').value));
             document.getElementById('httpMethod').addEventListener('change', (e) => UI.updateActiveTab(document.getElementById('endpointUrl').value, e.target.value));
 
@@ -990,6 +685,13 @@
                 if (cursor.findNext()) {
                     Editors.instances.response.setSelection(cursor.from(), cursor.to());
                     Editors.instances.response.scrollIntoView({ from: cursor.from(), to: cursor.to() }, 200);
+                }
+            });
+
+            document.getElementById('copyResBtn').addEventListener('click', () => {
+                const text = Editors.instances.response.getValue();
+                if(text && text !== "Hit 'Send' to get a response..." && text !== "Sending...") {
+                    navigator.clipboard.writeText(text).then(() => UI.showToast("Response Copied!"));
                 }
             });
 
@@ -1083,7 +785,8 @@
                             set: (k, v) => {
                                 const exist = STORE.env.find(e => e.key === k);
                                 if (exist) exist.val = String(v); else STORE.env.push({ key: k, val: String(v) });
-                                STORE.saveEnv(); UI.renderEnv();
+                                STORE.persistEnvironments();
+                                UI.renderEnv();
                             }
                         }
                     };
@@ -1200,34 +903,17 @@
             });
         });
 
-        // Prevent Right-Click (Context Menu)
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-});
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
 
-document.addEventListener('keydown', function(e) {
-    // Prevent F12
-    if (e.key === 'F12') {
-        e.preventDefault();
-    }
-
-    if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-        e.preventDefault();
-    }
-
-    if (e.ctrlKey && e.shiftKey && e.key === 'J') {
-        e.preventDefault();
-    }
-
-    if (e.ctrlKey && e.key === 'u' || e.key === 'U') {
-        e.preventDefault();
-    }
-
-    if (e.ctrlKey && e.shiftKey && e.key === 'C') {
-        e.preventDefault();
-    }
-});
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12') { e.preventDefault(); }
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') { e.preventDefault(); }
+            if (e.ctrlKey && e.shiftKey && e.key === 'J') { e.preventDefault(); }
+            if (e.ctrlKey && e.key === 'u' || e.key === 'U') { e.preventDefault(); }
+            if (e.ctrlKey && e.shiftKey && e.key === 'C') { e.preventDefault(); }
+        });
     </script>
 </body>
-
 </html>
