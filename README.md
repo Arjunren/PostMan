@@ -33,16 +33,6 @@ A lightweight, single-file API client with a built-in testing engine, environmen
 
 ---
 
-## 🚀 Getting Started
-
-Since **Mini Postman PRO** is entirely client-side, setup is instantaneous.
-
-1. **Download** the `index.html` file.
-2. **Open** it in any modern web browser.
-3. (Optional) For the best experience with local APIs, ensure your server has **CORS** enabled.
-
----
-
 ## 🛠 Tech Stack
 
 * **Styling:** [Tailwind CSS](https://tailwindcss.com/) (via CDN for portability)
